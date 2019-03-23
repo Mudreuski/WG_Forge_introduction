@@ -11,7 +11,33 @@ Example:
 }
 */
 export function collectByFirstLetter(...words) {
-  // YOUR CODE HERE
+  let arrayLetter = [];
+  const result = {};
+
+  for (let i = 0; i < words.length; i++) {
+    if (arrayLetter.indexOf(words[i][0]) === -1) {
+      arrayLetter.push(words[i][0]);
+    }
+  }
+
+  for (let i = 0; i < arrayLetter.length; i++) {
+    for (let j = 0; j < words.length; j++) {
+
+      if (words[j][0] === arrayLetter[i]) {
+        if (typeof result["" + arrayLetter[i]] === "undefined"){
+          result["" + arrayLetter[i]] = [];
+          result["" + arrayLetter[i]].push( words[j] );
+        } else {
+          
+          result["" + arrayLetter[i]].push( words[j] );
+        }
+      }
+    }
+
+    result["" + arrayLetter[i]].sort();
+  }
+
+  return result;
 }
 
 /*
