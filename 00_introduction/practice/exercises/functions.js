@@ -6,7 +6,11 @@ Example:
 [1, 2, 3], x => x + 1  yields [2, 3 ,4]
 */
 export function map(array, func) {
-  // YOUR CODE HERE
+  for (let i = 0; i < array.length; i++) {
+    array[i] = func(array[i]);
+  }
+
+  return array; 
 }
 
 /*
@@ -19,7 +23,16 @@ returns new array with elements matched to filter
 
 */
 export function filter(array, fn) {
-  // YOUR CODE HERE
+  let result = [];
+  
+  for (let i = 0; i < array.length; i++) {
+    if (fn(array[i])) {
+      result.push(array[i]);
+    }
+    
+  }
+
+  return result;
 }
 
 /*
@@ -36,7 +49,22 @@ gen() -> 5
 ...
 */
 export function fibGenerator() {
-  // YOUR CODE HERE
+  let array = [];
+
+  return function() {
+    if (array[0] !== 0) {
+      array[0] = 0;
+      return array[array.length-1];
+    }
+  
+    if (array.length === 1) {
+      array.push(1);
+      return array[array.length-1];
+    }
+
+    array[array.length] = array[array.length - 2] + array[array.length - 1];
+    return array[array.length-1];
+  }
 }
 
 /*
@@ -53,5 +81,7 @@ sumTwoAndFour() // 6
 Note: function has a length property which shows how many arguments it receives
 */
 export function partial(fn, ...args) {
-  // YOUR CODE HERE
+  return function(...argument) { 
+    return fn.call(this, ...args, ...argument);
+  }
 }
