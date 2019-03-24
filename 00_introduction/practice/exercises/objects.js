@@ -24,17 +24,16 @@ export function collectByFirstLetter(...words) {
     for (let j = 0; j < words.length; j++) {
 
       if (words[j][0] === arrayLetter[i]) {
-        if (typeof result["" + arrayLetter[i]] === "undefined"){
-          result["" + arrayLetter[i]] = [];
-          result["" + arrayLetter[i]].push( words[j] );
+        if (typeof result[arrayLetter[i]] === "undefined"){
+          result[arrayLetter[i]] = [];
+          result[arrayLetter[i]].push( words[j] );
         } else {
-          
-          result["" + arrayLetter[i]].push( words[j] );
+          result[arrayLetter[i]].push( words[j] );
         }
       }
     }
 
-    result["" + arrayLetter[i]].sort();
+    result[arrayLetter[i]].sort();
   }
 
   return result;
@@ -49,7 +48,15 @@ Example:
 ({name: 'John', age: 42}, 'name') yields {name: 'John'}
 */
 export function only(obj, ...keys) {
-  // YOUR CODE HERE
+  let result = {};
+
+  for (let i = 0; i < keys.length; i++) {
+    if (obj[keys[i]] !== undefined ) {
+      result[keys[i]] =  obj[keys[i]];
+    }
+  }
+
+  return result;
 }
 
 /*
@@ -70,7 +77,20 @@ Example:
 '' yields {}
 */
 export function wordsCount(text) {
-  // YOUR CODE HERE
+  const result = {};
+  const array = text.toLowerCase().replace(/[.,\/#!$%\^&\*;?:{}=\-_`~()]/g,"").split(' ');
+  
+  if (array[0] === '') {return result};
+
+  for (let i = 0; i < array.length; i++) {
+    if (result[array[i]] === undefined) {
+      result[array[i]] = 1; 
+    } else {
+      result[array[i]] += 1;
+    }
+  }
+
+  return result;
 }
 
 /*
@@ -88,5 +108,20 @@ user.isWeakPassword() === false
 */
 
 export function createUser(login, password) {
-  // YOUR CODE HERE
+    let user = {};
+
+    user.login = login;
+    user.password = password;
+    user.isWeakPassword = function() {
+      let passLower = password.toLowerCase();
+      let passUpper = passLower.toUpperCase();
+
+      if (user.password != passUpper && user.password != passLower) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+  return user;
 }
